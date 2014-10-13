@@ -1,1 +1,3 @@
-Repository for my Software Engineering Large Practical coursework submission.
+# Proposal #
+
+Avaliable at /proposal/proposal.md
