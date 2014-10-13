@@ -83,11 +83,7 @@ Therefore, I plan to have the breakdown of hours be something like this:
   </tr>
   <tr>
     <td>Research</td>
-    <td>3</td> 
-  </tr>
-  <tr>
-    <td>Proposal</td>
-    <td>2</td> 
+    <td>5</td> 
   </tr>
   <tr>
     <td>Design</td>
