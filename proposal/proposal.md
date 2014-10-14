@@ -1,7 +1,7 @@
-# myNation #
+﻿# myCiv #
 
 
-For my project, I propose myNation, a text-based game where users will create their own civilisation and then compete with other civilisations in war, economics and politics.
+For my project, I propose myCiv, a text-based game where users will create their own civilisation and then compete with other civilisations in war, economics and politics.
 
 ## Single Player ##
 
