@@ -13,11 +13,11 @@ class Nation(models.Model):
 class War(models.Model):
 	attacker = models.ForeignKey(Nation)
 	reciever = models.ForeignKey(Nation)
-	start_date = models.DateField([auto_now=False, auto_now_add=True,**options])
+	start_date = models.DateField(auto_now_add=True)
 
 class Trade(models.Model):
 	initiator = models.ForeignKey(Nation)
 	reciever = models.ForeignKey(Nation)
-	start_date = models.DateField([auto_now=False, auto_now_add=True,**options])
+	start_date = models.DateField(auto_now_add=True])
 
 
