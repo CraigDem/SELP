@@ -9,6 +9,8 @@ class Nation(models.Model):
 	land = models.IntegerField(default=1)
 	resource_1 = models.CharField(max_length=200)
 	resource_2 = models.CharField(max_length=200)
+	def ruler(self):
+		return self.ruler
 
 class War(models.Model):
 	attacker = models.ForeignKey(Nation, related_name='+')
