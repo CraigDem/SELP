@@ -4,7 +4,7 @@ from django.template import loader
 # Create your views here.
 
 def index(request):
-	template = loader.get_template('nations/index.html')
+	template = loader.get_template('nations/home.html')
 	return HttpResponse(template)
 
 def nation(request, nation_id):
