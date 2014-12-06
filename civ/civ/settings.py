@@ -62,11 +62,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'civ',
 	'USER': 'root',
-	'PASSWORD': 'P.2b3c4d5e6f',
-	'HOST': 'localhost',
-	'PORT': '3306',
+	'PASSWORD': 'root',
+	'HOST': '127.0.0.1',
+	'PORT': '8889',
     }
 }
+
+# localhost:3306 on Remote, 127.0.0.1:8889 on macbook
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -88,3 +90,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
+
+PROJECT_ROOT = '/Users/craigpeden/Development/SELP/'
+
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'civ/nations/static/templates/'),) 
+
+

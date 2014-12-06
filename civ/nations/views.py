@@ -4,8 +4,9 @@ from django.template import loader
 # Create your views here.
 
 def index(request):
-	template = loader.get_template('nations/home.html')
-	return HttpResponse(template)
+	template = "nations/home.html"
+	context = {}
+	return render(request,template,context)
 
 def nation(request, nation_id):
     response = "You're looking at nation %s."
