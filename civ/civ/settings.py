@@ -59,12 +59,12 @@ WSGI_APPLICATION = 'civ.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'civ',
-	'USER': 'root',
-	'PASSWORD': 'root',
+	'USER': 'craigpeden',
+	'PASSWORD': '',
 	'HOST': '127.0.0.1',
-	'PORT': '8889',
+	'PORT': '5432',
     }
 }
 
@@ -89,7 +89,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/nation'
 
 PROJECT_ROOT = '/Users/craigpeden/Development/SELP/'
 

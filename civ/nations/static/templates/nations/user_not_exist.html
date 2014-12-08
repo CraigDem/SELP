@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+	    <div class="col-md-12">
+	    	<div class="well login-box">
+				<h2 class="confirmation">Nation not found.</h2>
+				{% if user.is_anonymous %}
+					<a href="/login">Try Logging In</a>
+				{% else %}
+					<a href="/" class="error_view_nation">Home</a>
+				{% endif %}
+
+{% endblock %}
