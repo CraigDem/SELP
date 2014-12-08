@@ -51,3 +51,7 @@ body {
   padding-top: 20px;
   padding-right: 40px;
 }
+
+ul.nav.navbar-nav li a {
+  line-height: 22px !important;
+}

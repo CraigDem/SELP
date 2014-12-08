@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     nation_name = models.CharField(max_length=30)
     funds = models.DecimalField(default=10000.00, max_digits=19, decimal_places=2)
+    government = models.CharField(max_length=200)
     infrastructure = models.IntegerField(default=1)
     technology = models.IntegerField(default=1)
     land = models.IntegerField(default=1)

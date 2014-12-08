@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from nations.forms import UserForm, UserProfileForm
 from nations.models import UserProfile
+from django.http import HttpResponse
 import random
 
 # Create your views here.
@@ -28,6 +29,32 @@ def nation(request, nation_id=0):
 	
 	context = {'nation': nation}
 	return render(request,template,context)
+
+def edit_nation(request):
+    context = {}
+    if request.POST:
+        nation_form = UserProfileForm(data=request.POST)
+
+        if nation_form.is_valid():
+
+            #civ = UserProfile.objects.get(pk=user_id)
+            #book_form = UserProfileForm(request.POST, instance = civ)
+            #civ.save()    
+            return HttpResponse("Hello, world. You're at the polls index.")
+        
+        else:
+            return redirect('/edit_nation')
+    else:
+        template = "nations/user_not_exist.html"
+        try:
+            nation = UserProfile.objects.get(user_id=request.user.id)
+            template = "nations/edit_nation.html"
+            context = {'nation': nation}
+        except:
+            pass
+
+        return render(request,template,context)
+
 
 def register(request):
     # Like before, get the request's context.
@@ -62,6 +89,7 @@ def register(request):
             resources = random.sample(set(['Aluminium','Cattle','Coal','Fish','Furs','Gold','Gems','Iron','Lead','Lumber','Marble','Oil','Pigs','Rubber','Silver','Spices','Sugar','Uranium','Water','Wheat','Wine']),2)
             profile.resource1 = resources[0]
             profile.resource2 = resources[1]
+            profile.government = 'Democracy'
            	
 
             # Now we save the UserProfile model instance.

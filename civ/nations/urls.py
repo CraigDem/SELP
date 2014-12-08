@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^register/$', views.register, name='register'),
     url(r'^nation/(?P<nation_id>\d+)/$', views.nation, name='nation'),
     url(r'^nation/$', views.nation, name='nation'),
+    url(r'^edit_nation/$', views.edit_nation, name='edit_nation'),
     
 )
 
