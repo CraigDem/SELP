@@ -21,4 +21,3 @@ pip-delete-this-directory.txt
 
 env/
 *.pyc
-civ/civ/settings.py
