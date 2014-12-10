@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+	  <ul class="nav nav-pills nav-stacked">
+	    <li><a href="/nation">View My Nation <span class="sr-only">(current)</span></a></li>
+	    <li class="active"><a href="#">Edit My Nation </a></li>
+	  </ul>
+	</div>
+	<div class="col-sm-9 col-md-10 main">
+		<div class="panel panel-default">
+		    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
+		    <div class="panel-body">
+			    <form action="/edit_nation/" method="post">
+			    	{% csrf_token %}
+			    	<div class="form-group">
+					    <label class="control-label">Government</label>
+				      	<select name="government" class="form-control">
+							<option value="Capitalist">Capitalism</option>
+							<option value="Communist">Communism</option>
+							<option value="Democratic">Democratic</option>
+							<option value="Dictatorship">Dictorial</option>
+							<option value="Federal">Federalism</option>
+							<option value="Monarchical">Monarchy</option>
+						</select>
+					</div>
+					<div class="form-group">
+					    <label class="control-label">Religion</label>
+				      	<select name="religion" class="form-control">
+							<option value="Buddhist">Buddhism</option>
+							<option value="Christian">Christianity</option>
+							<option value="Hindu">Hinduism</option>
+							<option value="Muslim">Islamic</option>
+							<option value="Jewish">Judism</option>
+							<option value="Mixed">Monarchy</option>
+							<option value="None">Monarchy</option>
+							<option value="Sikhism">Monarch</option>
+						</select>
+					</div>
+					<div class="form-group">
+					    <label class="control-label">Peace Mode</label>
+					    <br />
+				      	<input type="checkbox" name="peace_mode" checked data-toggle="toggle" data-on="Ready for War!" data-off="Seeking Peace" data-onstyle="danger" data-offstyle="success">
+					</div>    	
+					<input class="btn btn-primary pull-right" type="submit" value="Update" />
+			    </form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

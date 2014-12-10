@@ -6,6 +6,7 @@
           rel="stylesheet" media="screen">
     <link href="{% static 'css/style.css' %}"
           rel="stylesheet" media="screen">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.0.0/css/bootstrap-toggle.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -22,7 +23,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/nation/{{ user.id }}">View Nation</a></li>
+            <li><a href="/nation/{{user.nation.id}}">View Nation</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_anonymous %}
@@ -49,5 +50,6 @@
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.0.0/js/bootstrap-toggle.min.js"></script>
   </body>
 </html>

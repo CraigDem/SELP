@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-pills nav-stacked">
+		    	<li><a href="/nation/{{user.nation.id}}">View My Nation <span class="sr-only">(current)</span></a></li>
+		    	<li class="active"><a href="#">Edit My Nation </a></li>
+		  	</ul>
+		</div>
+		<div class="col-sm-9 col-md-10 main">
+			<div class="panel panel-default">
+			    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
+			    <div class="panel-body">
+			    	<form action="" method="post">
+			    		{% csrf_token %}
+				    	<label for="id_user">User:</label><select id="id_user" name="user">
+							<option value="">---------</option>
+							<option value="1">admin</option>
+							<option value="11" selected="selected">gumiho</option>
+							</select>
+							<label for="id_nation_name">Nation name:</label><input id="id_nation_name" maxlength="30" name="nation_name" type="text" value="gumination" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==); background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat;">
+							<label for="id_funds">Funds:</label><input id="id_funds" name="funds" step="0.01" type="number" value="10000">
+							<label for="id_government">Government:</label><input id="id_government" maxlength="30" name="government" type="text" value="Democratic">
+							<label for="id_religion">Religion:</label><input id="id_religion" maxlength="30" name="religion" type="text" value="None">
+							<label for="id_infrastructure">Infrastructure:</label><input id="id_infrastructure" name="infrastructure" step="0.01" type="number" value="50">
+							<label for="id_technology">Technology:</label><input id="id_technology" name="technology" step="0.01" type="number" value="150">
+							<label for="id_land">Land:</label><input id="id_land" name="land" step="0.01" type="number" value="350">
+							<label for="id_resource1">Resource1:</label><input id="id_resource1" maxlength="200" name="resource1" type="text" value="Uranium">
+							<label for="id_resource2">Resource2:</label><input id="id_resource2" maxlength="200" name="resource2" type="text" value="Iron">
+							<label for="id_soldiers">Soldiers:</label><input id="id_soldiers" name="soldiers" type="number" value="200">
+							<label for="id_tanks">Tanks:</label><input id="id_tanks" name="tanks" type="number" value="10">
+							<label for="id_peaceful">Peaceful:</label><input id="id_peaceful" name="peaceful" type="checkbox">
+				    	<input type="submit" value="Update" />
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

@@ -2,8 +2,28 @@
 
 {% block content %}
 
-<div class="container">
-	<h1>Welcome to nations</h1>
-</div>
+<style>
+
+html, body {
+	height: 100% !important;
+	width: 100% !important;
+}
+
+</style>
+
+<header id="top" class="header">
+	<div class="text-vertical-center">
+    	<h1>civ</h1>
+  		<h3>Nation Simulator</h3>
+		<br>
+		{% if user.is_anonymous %}
+		<a href="/login/" class="btn btn-primary btn-lg">Login</a> | <a href="/register" class="btn btn-primary btn-lg">
+		Sign Up</a>
+		{% else %}
+		<a href="/nation/{{user.nation.id}}" class="btn btn-primary btn-lg">View My Nation</a>
+		{% endif %}
+
+	</div>
+</header>
 
 {% endblock %}

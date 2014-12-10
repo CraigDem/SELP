@@ -2,16 +2,14 @@ from django.conf.urls import patterns, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from nations import views
 from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='home'),
-    url(r'^login/$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',  {'next_page': '/'}),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^nation/(?P<nation_id>\d+)/$', views.nation, name='nation'),
-    url(r'^nation/$', views.nation, name='nation'),
-    url(r'^edit_nation/$', views.edit_nation, name='edit_nation'),
+    url(r'^$', views.indexView.as_view()),
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout',  {'next_page': '/'}, name='logout'),
+    url(r'^register/$', views.registerView.as_view(), name='register'),
+    url(r'^nation/(?P<pk>\d+)/$', views.nationView.as_view(), name='nation'),
+    url(r'^edit_nation/(?P<pk>\d+)/$', views.editNationView.as_view(), name='edit_nation'),
     
 )
 

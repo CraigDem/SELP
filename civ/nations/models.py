@@ -1,25 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
 
-class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
+class Nation(models.Model):
     user = models.OneToOneField(User)
 
-    # The additional attributes we wish to include.
     nation_name = models.CharField(max_length=30)
     funds = models.DecimalField(default=10000.00, max_digits=19, decimal_places=2)
-    government = models.CharField(max_length=200)
-    infrastructure = models.IntegerField(default=1)
-    technology = models.IntegerField(default=1)
-    land = models.IntegerField(default=1)
+    government = models.CharField(max_length=30, default='Democratic')
+    religion = models.CharField(max_length=30, default='None')
+    infrastructure = models.DecimalField(default=1.00, max_digits=19, decimal_places=2)
+    technology = models.DecimalField(default=1.00, max_digits=19, decimal_places=2)
+    land = models.DecimalField(default=1.00, max_digits=19, decimal_places=2)
     resource1 = models.CharField(max_length=200)
     resource2 = models.CharField(max_length=200)
-
-
-    # Override the __unicode__() method to return out something meaningful!
-    def __unicode__(self):
-        return self.user.username
+    soldiers = models.IntegerField(default=10)
+    tanks = models.IntegerField(default=1)
+    peaceful = models.BooleanField(default=False)
 
 """class War(models.Model):
 	attacker = models.ForeignKey(UserProfile, related_name='+')
