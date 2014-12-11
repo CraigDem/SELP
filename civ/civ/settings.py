@@ -99,8 +99,8 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
-PROJECT_ROOT = '/Users/craigpeden/Development/SELP/'
-
+# PROJECT_ROOT = '/Users/craigpeden/Development/SELP/'
+PROJECT_ROOT = '/Users/Craig/Development/SELP/'
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'civ/nations/static/templates/'),) 
 
 

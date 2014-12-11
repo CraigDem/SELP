@@ -8,7 +8,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ['username', 'password']
 
 class NationForm(forms.ModelForm):
 
@@ -16,13 +16,13 @@ class NationForm(forms.ModelForm):
 	resources = [('Aluminium', 'Aluminium'),('Cattle','Cattle'),('Coal','Coal'),('Fish','Fish'),('Furs','Furs'),('Gold','Gold'),('Gems','Gems'),('Iron','Iron'),('Lead','Lead'),('Lumber','Lumber'),('Marble','Marble'),('Oil','Oil'),('Pigs','Pigs'),('Rubber','Rubber'),('Silver','Silver'),('Spices','Spices'),('Sugar','Sugar'),('Uranium','Uranium'),('Water','Water'),('Wheat','Wheat'),('Wine','Wine')]
 	religions = [('None','None'),('Mixed','Mixed'),('Christianity','Christian'),('Islam','Islamic'),('Jewish','Judaism'),('Buddhism','Buddist'),('Hinduism','Hindu'),('Sikhism','Sikh')]
 
-	resource1 = forms.ChoiceField(required=False,choices=resources)
-	resource2 = forms.ChoiceField(required=False,choices=resources)
+	resource1 = forms.ChoiceField(choices=resources)
+	resource2 = forms.ChoiceField(choices=resources)
 
-	government = forms.ChoiceField(required=False,choices=governments)
-	religion = forms.ChoiceField(required=False,choices=religions)
+	government = forms.ChoiceField(choices=governments)
+	religion = forms.ChoiceField(choices=religions)
     
 	class Meta:
 		model = Nation
-    	fields = ('government','religion','resource1','resource2')
+    	exclude = ['user','nation_name','funds','infrastructure','technology','land','soldiers','tanks']
     

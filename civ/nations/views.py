@@ -18,6 +18,7 @@ class nationView(DetailView):
 class editNationView(UpdateView, ModelFormMixin):
    
     model = Nation
+    form_class = NationForm
 
     def get_success_url(self):
         return ''
