@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<script>
+	$(function() {
+    	$('#id_peaceful').bootstrapToggle();
+  	})
+</script>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
@@ -16,7 +22,8 @@
 			    <div class="panel-body">
 			    	<form action="" method="post">
 			    		{% csrf_token %}
-				    	{{form.as_p}}
+			    		{% load bootstrap3 %}
+						{% bootstrap_form form %}
 				    	<input type="submit" value="Update" />
 				    </form>
 				</div>

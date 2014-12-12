@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.views.generic import View, UpdateView, DetailView
 from django.views.generic.edit import ModelFormMixin
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.forms.models import BaseModelFormSet
 import random
 
 class indexView(View):
@@ -20,8 +22,21 @@ class editNationView(UpdateView, ModelFormMixin):
     model = Nation
     form_class = NationForm
 
-    def get_success_url(self):
-        return ''
+
+    def get(self, request, pk):
+        context = RequestContext(request)
+        nation = Nation.objects.get(pk=pk)
+        nation_form = NationForm(instance=nation)
+        return render_to_response('nations/nation_form.html',{'form': nation_form, 'nation': nation},context)
+
+    def post(self, request, pk):
+        context = RequestContext(request)
+        nation = Nation.objects.get(pk=pk)
+        nation_form = NationForm(data=request.POST, instance=nation)
+        if nation_form.is_valid():
+            nation_form.save()
+            return redirect('/nation/' + pk)
+        return render_to_response('nations/nation_form.html',{'form_errors': nation_form.errors, 'nation':nation},context)
 
 class registerView(View):
     
