@@ -1,12 +1,10 @@
-body {
-    padding-top: 60px;
-    background-color: #eee;
-}
-
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
 body {
+    padding-top: 80px;
+    background-color: #eee;
     font-family: 'Open Sans', sans-serif!important;
 }
+
 .well{
     background-color:#fff!important;
     border-radius:0!important;
@@ -19,11 +17,13 @@ body {
     margin:0 auto;
     margin-bottom: 15px;
 }
+
 .well.login-box legend, .confirmation {
   font-size:26px;
   text-align:center;
   font-weight:300;
 }
+
 .well.login-box label {
   font-weight:300;
   font-size:16px;
@@ -38,7 +38,6 @@ body {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    border-right: 1px solid #000;
   }
 
 .header {
@@ -77,4 +76,7 @@ body {
 
 ul.nav.navbar-nav li a {
   line-height: 22px !important;
+}
+
+.cost_column {
 }

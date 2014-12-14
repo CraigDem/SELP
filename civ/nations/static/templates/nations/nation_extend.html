@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<div class="container">		
+	<div class="panel panel-default">
+	    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
+	    <div class="panel-body">
+	    	<table class="table table-bordered">
+					<tr>
+						<td>Current Infrastructure:</td>
+						<td>{{nation.infrastructure}}</td>
+					</tr> 
+					<tr>
+						<td>Current Technology: </td>
+						<td>{{nation.technology}}</td>
+					</tr>
+					<tr>
+						<td>Current Land: </td>
+						<td>{{nation.land}}</td>
+					</tr>
+					<tr>
+						<td>Current Funds:</td>
+						<td>£{{nation.funds}}</td>
+					</tr>
+			</table>
+			<div class="alert alert-info" role="alert">Use a positive value to purchase or a negitive value to sell. You may buy in blocks of 50 and sell whatever you have!</div>
+			{% if error %}
+				<div class="alert alert-danger" role="alert">You do not have enough funds to complete the transaction!</div>
+			{% endif %}
+	    	<form class="form-horizontal" action="" role="form" method="post">
+	    		{% csrf_token %}
+	    		<div class="form-group">
+	    			<label for="infrastructure" class="col-sm-2 control-label">Infrastructure</label>
+	    			<div class="col-sm-8">
+	    				<input type="number" class="form-control" step="1" min="-{{nation.infrastructure}}" max="50" value="0" name="infrastructure">
+	    			</div>
+	    			<label for="infrastructure" class="col-sm-2 control-label">£{{costs.infracost}} per level</label>
+	    		</div>
+	    		<div class="form-group">
+	    			<label for="technology" class="col-sm-2 control-label">Technology</label>
+	    			<div class="col-sm-8">
+	    				<input type="number" class="form-control" step="1" min="-{{nation.technology}}" max="50" value="0" name="technology">
+	    			</div>
+	    			<label for="technology" class="col-sm-2 control-label">£{{costs.techcost}} per level</label>
+	    		</div>
+	    		<div class="form-group">
+	    			<label for="land" class="col-sm-2 control-label">Land</label>
+	    			<div class="col-sm-8">
+	    				<input type="number" class="form-control" step="1" max="50" min="-{{nation.land}}" value="0" name="land">
+	    			</div>
+	    			<label for="land" class="col-sm-2 control-label">£{{costs.landcost}} per square mile</label>
+	    		</div>
+		    	<input type="submit" class="btn btn-primary btn-block" value="Purchase" />
+		    </form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

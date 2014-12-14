@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+import datetime
 
 class Nation(models.Model):
     user = models.OneToOneField(User)
@@ -13,9 +15,9 @@ class Nation(models.Model):
     land = models.DecimalField(default=1.00, max_digits=19, decimal_places=2)
     resource1 = models.CharField(max_length=200)
     resource2 = models.CharField(max_length=200)
-    soldiers = models.IntegerField(default=10)
-    tanks = models.IntegerField(default=1)
     peaceful = models.BooleanField(default=False)
+    paid_bills = models.DateField()
+    collect_taxes = models.DateField()
 
 """class War(models.Model):
 	attacker = models.ForeignKey(UserProfile, related_name='+')

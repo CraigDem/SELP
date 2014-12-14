@@ -1,70 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3 col-md-2 sidebar">
-		  <ul class="nav nav-pills nav-stacked">
-		    <li class="active"><a href="#">View My Nation <span class="sr-only">(current)</span></a></li>
-		    <li><a href="/edit_nation/{{user.nation.id}}">Edit My Nation </a></li>
-		  </ul>
+<div class="container">
+	<div class="panel panel-default">
+	    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
+	    <div class="panel-body">
+	    	<p>{{nation.nation_name}} encompasses {{nation.land}} square miles and is governed by a {{nation.government}} government. Its people are mostly of a {{nation.religion}} religion.</p>
 		</div>
-		<div class="col-sm-9 col-md-10 main">
-			<div class="panel panel-default">
-			    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
-			    <div class="panel-body">
-			    	<p>{{nation.nation_name}} encompasses {{nation.land}} square miles and its mostly is ran by a {{nation.government}} government. Its people are mostly of a {{nation.religion}} religion.</p>
-				</div>
-				<div class="panel-heading">{{nation.nation_name}} economic data</div>
-			    <table class="table">
-			        <tbody>
-			        	<tr>
-			            	<td>Funds: </td>
-			            	<td>£{{nation.funds}}</td>
-			          	</tr>
-			          	<tr>
-			            	<td>Infrastructure: </td>
-			            	<td>{{nation.infrastructure}}</td>
-			          	</tr>
-			          	<tr>
-			            	<td>Technology: </td>
-			            	<td>{{nation.technology}}</td>
-			          	</tr>
-			          	<tr>
-			            	<td>Land: </td>
-			            	<td>{{nation.land}} miles.</td>
-			          	</tr>
-			        </tbody>
-				</table>
-				<div class="panel-heading">{{nation.nation_name}} sociatal data</div>
-				<table class="table">
-					<tbody>
-						<tr>
-			            	<td>Government: </td>
-			            	<td>{{nation.government}}</td>
-						</tr>
-						<tr>
-							<td>Religion: </td>
-							<td>{{nation.religion}}</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="panel-heading">{{nation.nation_name}}'s military data</div>
-				<table class="table">
-			        <tbody>
-			        	<tr>
-			            	<td>Soldiers: </td>
-			            	<td>{{nation.soldiers}}</td>
-			          	</tr>
-			          	<tr>
-			            	<td>Tanks: </td>
-			            	<td>{{nation.tanks}}</td>
-			          	</tr>
-			        </tbody>
-				</table>
-			</div>
-		</div>
+		<div class="panel-heading">{{nation.nation_name}} economic data</div>
+	    <table class="table">
+	        <tbody>
+	        	<tr>
+	            	<td>Funds: </td>
+	            	<td>£{{nation.funds}}</td>
+	          	</tr>
+	          	<tr>
+	            	<td>Infrastructure: </td>
+	            	<td>{{nation.infrastructure}}</td>
+	          	</tr>
+	          	<tr>
+	            	<td>Technology: </td>
+	            	<td>{{nation.technology}}</td>
+	          	</tr>
+	          	<tr>
+	            	<td>Land: </td>
+	            	<td>{{nation.land}} miles.</td>
+	          	</tr>
+	          	<tr>
+	            	<td>National Resources: </td>
+	            	<td>{{nation.resource1}}, {{nation.resource2}}</td>
+	          	</tr>
+	        </tbody>
+		</table>
+		<div class="panel-heading">{{nation.nation_name}} sociatal data</div>
+		<table class="table">
+			<tbody>
+				<tr>
+	            	<td>Government: </td>
+	            	<td>{{nation.government}}</td>
+				</tr>
+				<tr>
+					<td>Religion: </td>
+					<td>{{nation.religion}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 

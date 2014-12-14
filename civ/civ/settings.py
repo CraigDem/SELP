@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'nations',
     'bootstrap3',
+    'django.contrib.humanize',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,4 +105,7 @@ PROJECT_ROOT = '/Users/craigpeden/Development/SELP/'
 #PROJECT_ROOT = '/Users/Craig/Development/SELP/'
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'civ/nations/static/templates/'),) 
 
-
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'django.core.context_processors.request',
+	'django.contrib.auth.context_processors.auth',
+)

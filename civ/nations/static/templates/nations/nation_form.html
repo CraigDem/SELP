@@ -1,36 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<script>
-	$(function() {
-    	$('#id_peaceful').bootstrapToggle();
-  	})
-</script>
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3 col-md-2 sidebar">
-			<ul class="nav nav-pills nav-stacked">
-		    	<li><a href="/nation/{{user.nation.id}}">View My Nation <span class="sr-only">(current)</span></a></li>
-		    	<li class="active"><a href="#">Edit My Nation </a></li>
-		  	</ul>
-		</div>
-		<div class="col-sm-9 col-md-10 main">
-			<div class="panel panel-default">
-			    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
-			    <div class="panel-body">
-			    	<form action="" method="post">
-			    		{% csrf_token %}
-			    		{% load bootstrap3 %}
-						{% bootstrap_form form %}
-				    	<input type="submit" value="Update" />
-				    </form>
-				</div>
-			</div>
+	
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">Nation of {{nation.nation_name}}</div>
+	    <div class="panel-body">
+	    	<form action="" method="post">
+	    		{% csrf_token %}
+	    		{% load bootstrap3 %}
+	    		{% bootstrap_form_errors form %}
+				{% bootstrap_form form %}
+		    	<input class="btn btn-primary btn-block" type="submit" value="Update" />
+		    </form>
 		</div>
 	</div>
 </div>
-
 
 {% endblock %}

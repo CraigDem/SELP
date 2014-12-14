@@ -26,3 +26,8 @@ class NationForm(forms.ModelForm):
 		model = Nation
 		exclude = ['user','nation_name','funds','infrastructure','technology','land','soldiers','tanks']
     	
+class extendForm(forms.ModelForm):
+   	class Meta:
+		model = Nation
+		fields = ['infrastructure','technology','land']
+    	
