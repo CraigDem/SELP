@@ -7,33 +7,31 @@
 	<div class="panel panel-default">
 	    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
 	    <div class="panel-body">
-	    	{% if error %}
-				<div class="alert alert-danger" role="alert">You do not have enough funds to complete the transaction! Try collecting taxes!</div>
-			{% endif %}
+		    <div class="alert alert-info" role="alert">Iron, Lumber and Uranium give discounts to infrastructure bills of 10%, 8% and 3% respectively</div>
 	    	<table class="table table-bordered">
 					<tr>
 						<td>Current Infrastructure:</td>
 						<td>{{nation.infrastructure}}</td>
 						<td>Cost Per Level:</td>
-						<td>£{{costs.infrastructure}}</td>
+						<td>£{{costs.per_infrastructure}}</td>
 						<td>Infrastructure total:</td>
-						<td>£{{total_costs.infrastructure}}</td>
+						<td>£{{costs.infrastructure}}</td>
 					</tr> 
 					<tr>
 						<td>Current Technology: </td>
 						<td>{{nation.technology}}</td>
 						<td>Cost Per Level:</td>
-						<td>£{{costs.technology}}</td>
+						<td>£{{costs.per_technology}}</td>
 						<td>Technology total:</td>
-						<td>£{{total_costs.technology}}</td>
+						<td>£{{costs.technology}}</td>
 					</tr>
 					<tr>
 						<td>Current Land: </td>
 						<td>{{nation.land}}</td>
 						<td>Cost Per Level:</td>
-						<td>£{{costs.land}}</td>
+						<td>£{{costs.per_land}}</td>
 						<td>Land total:</td>
-						<td>£{{total_costs.land}}</td>
+						<td>£{{costs.land}}</td>
 					</tr>
 					<tr>
 						<td colspan="6">
@@ -43,19 +41,29 @@
 						<td>Current Funds:</td>
 						<td>£{{nation.funds}}</td>
 						<td>Bills total:</td>
-						<td>£{{bills}}</td>
+						<td>£{{costs.total}}</td>
 						<td>Funds after bills:</td>
-						<td>£{{new_funds}}</td>
+						<td>£{{costs.new_funds}}</td>
+					</tr>
+					<tr>
+						<td colspan="5">Bills Paid</td>
+						<td>{{nation.paid_bills}}</td>
 					</tr>
 			</table>
 	    	<form action="" role="form" method="post">
 	    		{% csrf_token %}
 	    		<div class="form-group">
 	    			<div class="col-sm-8">
-	    				<input type="number" value="{{bills}}" name="bills" hidden>
+	    				<input type="number" value="{{costs.total}}" name="bills" hidden>
 	    			</div>
 	    		</div>
-		    	<input type="submit" class="btn btn-primary btn-block" value="Pay Bills" />
+	    		{% if validate.payable %}
+		    		<input type="submit" class="btn btn-primary btn-block" value="Pay Bills" />
+		    	{% else %}
+		    		<div class="alert alert-danger" role="alert">{{validate.error}}</div>
+		    		<input type="submit" class="btn btn-primary btn-block" value="Pay Bills" disabled />
+		    	{% endif %}
+		    		
 		    </form>
 		</div>
 	</div>

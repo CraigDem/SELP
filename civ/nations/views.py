@@ -159,7 +159,7 @@ class billsNationView(DetailView):
 
     def calculate_discounts(self, bills, resource1, resource2):
         resources = [resource1,resource2]
-
+        bills = float(bills)
         if 'Iron' in resources:
             bills = bills * 0.90
         if 'Lumber' in resources:
@@ -168,38 +168,46 @@ class billsNationView(DetailView):
             bills = bills * 0.97
 
         return bills
-
+        
+    def bills_payable(self, nation, thing): 
+	    if nation.paid_bills == thing:
+	    	return {'payable': False, 'error': 'Can only pay bills once a day.'}
+	    else:
+	    	infrastructure = self.calculate_discounts(self.infrastructure_upkeep(nation.infrastructure)*nation.infrastructure,nation.resource1,nation.resource2)
+	    	total_bills = infrastructure+nation.technology*2+nation.land*1
+	    	
+	    	if nation.funds > total_bills:
+	    		return {'payable': True}
+	    	else:
+	    		return {'payable': False, 'error': 'Not enough funds'}  		
+	
+    def costs_generator(self, nation):
+	    infrastructure = self.calculate_discounts(self.infrastructure_upkeep(nation.infrastructure)*nation.infrastructure,nation.resource1,nation.resource2)
+	    total_bills = infrastructure+nation.technology*2+nation.land*1
+	    new_funds = float(nation.funds) - total_bills
+	    
+	    return {'per_infrastructure': self.infrastructure_upkeep(nation.infrastructure), 'per_technology': 2, 'per_land': 1, 'infrastructure': format(infrastructure,'.2f'), 'technology': format(nation.technology*2,'.2f'), 'land': format(nation.land*1,'.2f'), 'total': format(total_bills,'.2f'), 'new_funds': format(new_funds,'.2f')}
+		
     def get(self, request, pk):
         nation = Nation.objects.get(pk=pk)
+        
         if request.user != nation.user:
             return redirect('noEntry')
-        else:
-            if request.GET.has_key('funds'):  
-                if request.GET['funds'] == 'True':
-                    error = True
-                else:
-                    error = False
-            else:
-                error = False
-            
-            costs = {'infrastructure': self.infrastructure_upkeep(nation.infrastructure), 'technology': 2, 'land': 1}
-            total_costs = {'infrastructure': self.infrastructure_upkeep(nation.infrastructure)*nation.infrastructure, 'technology': nation.technology*2, 'land': nation.land*1}
-            bills = int(nation.infrastructure*self.infrastructure_upkeep(nation.infrastructure)) + int(nation.technology*2) + int(nation.land*1)
-            bills = self.calculate_discounts(bills, nation.resource1, nation.resource2)
-            
-            return render_to_response('nations/nation_bills.html',{'costs': costs, 'nation': nation, 'bills': format(bills,'.2f'), 'total_costs': total_costs, 'new_funds': format(float(nation.funds)-bills,'.2f'), 'error': error},RequestContext(request))
+        else:        
+            return render_to_response('nations/nation_bills.html',{'costs': self.costs_generator(nation), 'nation': nation, 'validate': self.bills_payable(nation, datetime.datetime.now().date())},RequestContext(request))
 
     def post(self, request, pk):
         nation = Nation.objects.get(pk=pk)
         if request.user != nation.user:
             return redirect('noEntry')
         else:
-            if Decimal(nation.funds) > Decimal(request.POST['bills']):   
-                nation.funds = nation.funds - Decimal(request.POST['bills'])
-                nation.save()
-                return redirect('/nation/' + pk)
+            if self.bills_payable(nation,datetime.datetime.now().date()):
+            	nation.funds = nation.funds - Decimal(request.POST['bills'])
+            	nation.paid_bills = datetime.datetime.now().date()
+            	nation.save()
+            	return redirect('/nation/' + pk)
             else:
-                return redirect('/bills/' + pk + '?funds=True')
+            	return redirect('/bills/' + pk)
 
 class taxesNationView(DetailView):
     model = Nation
