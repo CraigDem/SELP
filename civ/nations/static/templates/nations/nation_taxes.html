@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<div class="container">		
+	<div class="panel panel-default">
+	    <div class="panel-heading">Nation of {{nation.nation_name}}</div>
+	    <div class="panel-body">
+	    	<table class="table table-bordered">
+					<tr>
+						<td>Current Infrastructure:</td>
+						<td>{{nation.infrastructure}}</td>
+						<td>Current Technology: </td>
+						<td>{{nation.technology}}</td>
+					</tr> 
+					<tr>
+						<td>Current Land: </td>
+						<td>{{nation.land}}</td>
+						<td>Current Funds:</td>
+						<td>£{{nation.funds}}</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td>Current Citizens:</td>
+						<td>{{nation.citizens}}</td>
+						<td>Median Income:</td>
+						<td>£15,000</td>
+					</tr>
+					<tr>
+						<td>Income Tax Rate:</td>
+						<td>{{nation.tax_rate}}%</td>
+						<td>Total Taxes to Collect:</td>
+						<td>£{{taxes}}</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td>Funds after Taxes:</td>
+						<td>£{{new_funds}}</td>
+						<td>Taxes Last Collected:</td>
+						<td>{{nation.collect_taxes}}</td>
+					</tr>
+			</table>
+	    	<form action="" role="form" method="post">
+	    		{% csrf_token %}
+	    		<div class="form-group">
+	    			<div class="col-sm-8">
+	    				<input type="number" value="{{taxes}}" name="taxes" hidden>
+	    			</div>
+	    		</div>
+	    		{% if validate.payable %}
+		    		<input type="submit" class="btn btn-primary btn-block" value="Collect Taxes" />
+		    	{% else %}
+		    		<div class="alert alert-danger" role="alert">{{validate.error}}</div>
+		    		<input type="submit" class="btn btn-primary btn-block" value="Collect Taxes" disabled />
+		    	{% endif %}
+		    		
+		    </form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

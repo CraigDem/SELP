@@ -3,6 +3,7 @@
   <head>{% load staticfiles %}
     <link href="{% static 'css/sandstone.min.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/style.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" media="screen">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.0.0/css/bootstrap-toggle.min.css" rel="stylesheet">
   </head>
 
@@ -27,6 +28,7 @@
             <li><a href="/expand/{{user.nation.id}}">Develop Nation </a></li>
             <li><a href="/taxes/{{user.nation.id}}">Collect Taxes </a></li>
             <li><a href="/bills/{{user.nation.id}}">Pay Bills </a></li>
+            <li><a href="/rank">Nation Rankings </a></li>
             {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -54,6 +56,8 @@
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.0.0/js/bootstrap-toggle.min.js"></script>
   </body>
 </html>

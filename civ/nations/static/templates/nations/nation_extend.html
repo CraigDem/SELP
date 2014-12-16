@@ -23,8 +23,12 @@
 						<td>Current Funds:</td>
 						<td>£{{nation.funds}}</td>
 					</tr>
+					<tr>
+						<td>Current Citizens:</td>
+						<td>{{nation.citizens}}</td>
+					</tr>
 			</table>
-			<div class="alert alert-info" role="alert">Use a positive value to purchase or a negitive value to sell. You may buy in blocks of 50 and sell whatever you have!</div>
+			<div class="alert alert-info" role="alert">Use a positive value to purchase or a negative value to sell. You may buy in blocks of 50 and sell whatever you have!</div>
 			{% if error %}
 				<div class="alert alert-danger" role="alert">You do not have enough funds to complete the transaction!</div>
 			{% endif %}
@@ -51,7 +55,9 @@
 	    			</div>
 	    			<label for="land" class="col-sm-2 control-label">£{{costs.landcost}} per square mile</label>
 	    		</div>
+	    		{% if error %}
 		    	<input type="submit" class="btn btn-primary btn-block" value="Purchase" />
+		    	{% endif %}
 		    </form>
 		</div>
 	</div>

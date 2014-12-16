@@ -5,12 +5,9 @@ from nations.models import Nation
 from django.contrib.auth.models import User
 from django.views.generic import View, UpdateView, DetailView
 from django.views.generic.edit import ModelFormMixin
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required
 from django.forms.models import BaseModelFormSet
 from decimal import Decimal
 import datetime
-from django.utils import timezone
 import random
 
 class indexView(View):
@@ -80,25 +77,6 @@ class expandNationView(UpdateView, ModelFormMixin):
     model = Nation
     form_class = extendForm
 
-    def calculate_cost(self,level,amount):
-        if amount == 0:
-            cost = 0
-        elif amount > 0:
-            if level < 100:
-                cost = 100 * amount
-            elif level >= 100 and level < 1000:
-                cost = 200 * amount
-            elif level >= 1000 and level < 2000:
-                cost = 400 * amount
-            elif level >= 2000 and level < 3000:
-                cost = 800 * amount
-            else:
-                cost = 1000 * amount
-        else:
-            cost = 5 * amount
-
-        return cost
-
     def get(self, request, pk):  
         nation = Nation.objects.get(pk=pk)
         if request.user != nation.user:
@@ -127,20 +105,61 @@ class expandNationView(UpdateView, ModelFormMixin):
             new_land = nation.land + int(data['land'])
 
             cost = Decimal(self.calculate_cost(nation.infrastructure,int(data['infrastructure']))) + int(self.calculate_cost(nation.technology,int(data['technology']))) + int(self.calculate_cost(nation.land,int(data['land'])))
-
-            nation.infrastructure = new_infrastructure
-            nation.technology = new_technology
-            nation.land = new_land
-            
+ 
             if cost <= nation.funds:
+            	nation.infrastructure = new_infrastructure
+            	nation.technology = new_technology
+            	nation.land = new_land
+            	nation.citizens = int(new_infrastructure*5+new_land*2)
                 nation.funds = nation.funds - cost
                 nation.save()
                 return redirect('/expand/' + pk)
             else:
                 return redirect('/expand/' + pk + '?funds=True')
+                
+    def calculate_cost(self,level,amount):
+        if amount == 0:
+            cost = 0
+        elif amount > 0:
+            if level < 100:
+                cost = 100 * amount
+            elif level >= 100 and level < 1000:
+                cost = 200 * amount
+            elif level >= 1000 and level < 2000:
+                cost = 400 * amount
+            elif level >= 2000 and level < 3000:
+                cost = 800 * amount
+            else:
+                cost = 1000 * amount
+        else:
+            cost = 5 * amount
 
+        return cost
+                
+	
 class billsNationView(DetailView):
     model = Nation
+    
+    def get(self, request, pk):
+        nation = Nation.objects.get(pk=pk)
+        
+        if request.user != nation.user:
+            return redirect('noEntry')
+        else:        
+            return render_to_response('nations/nation_bills.html',{'costs': self.costs_generator(nation), 'nation': nation, 'validate': self.bills_payable(nation, datetime.datetime.now().date())},RequestContext(request))
+
+    def post(self, request, pk):
+        nation = Nation.objects.get(pk=pk)
+        if request.user != nation.user:
+            return redirect('noEntry')
+        else:
+            if self.bills_validation(nation,datetime.datetime.now().date()):
+            	nation.funds = nation.funds - Decimal(request.POST['bills'])
+            	nation.paid_bills = datetime.datetime.now().date()
+            	nation.save()
+            	return redirect('/nation/' + pk)
+            else:
+            	return redirect('/bills/' + pk)
 
     def infrastructure_upkeep(self,infrastructure):
     
@@ -169,8 +188,8 @@ class billsNationView(DetailView):
 
         return bills
         
-    def bills_payable(self, nation, thing): 
-	    if nation.paid_bills == thing:
+    def bills_validation(self, nation, date): 
+	    if nation.paid_bills == date:
 	    	return {'payable': False, 'error': 'Can only pay bills once a day.'}
 	    else:
 	    	infrastructure = self.calculate_discounts(self.infrastructure_upkeep(nation.infrastructure)*nation.infrastructure,nation.resource1,nation.resource2)
@@ -185,29 +204,49 @@ class billsNationView(DetailView):
 	    infrastructure = self.calculate_discounts(self.infrastructure_upkeep(nation.infrastructure)*nation.infrastructure,nation.resource1,nation.resource2)
 	    total_bills = infrastructure+nation.technology*2+nation.land*1
 	    new_funds = float(nation.funds) - total_bills
-	    
 	    return {'per_infrastructure': self.infrastructure_upkeep(nation.infrastructure), 'per_technology': 2, 'per_land': 1, 'infrastructure': format(infrastructure,'.2f'), 'technology': format(nation.technology*2,'.2f'), 'land': format(nation.land*1,'.2f'), 'total': format(total_bills,'.2f'), 'new_funds': format(new_funds,'.2f')}
-		
+
+class taxesNationView(DetailView):
+    model = Nation
+    
     def get(self, request, pk):
         nation = Nation.objects.get(pk=pk)
         
         if request.user != nation.user:
             return redirect('noEntry')
         else:        
-            return render_to_response('nations/nation_bills.html',{'costs': self.costs_generator(nation), 'nation': nation, 'validate': self.bills_payable(nation, datetime.datetime.now().date())},RequestContext(request))
+        	new_funds = nation.funds + Decimal(self.calculate_taxes(nation))
+        	return render_to_response('nations/nation_taxes.html',{'taxes': format(self.calculate_taxes(nation),'.2f'), 'new_funds': format(new_funds,'.2f'), 'nation': nation, 'validate': self.taxes_validation(nation, datetime.datetime.now().date())},RequestContext(request))
 
     def post(self, request, pk):
         nation = Nation.objects.get(pk=pk)
         if request.user != nation.user:
             return redirect('noEntry')
         else:
-            if self.bills_payable(nation,datetime.datetime.now().date()):
-            	nation.funds = nation.funds - Decimal(request.POST['bills'])
-            	nation.paid_bills = datetime.datetime.now().date()
+            if self.taxes_validation(nation,datetime.datetime.now().date()):
+            	nation.funds = nation.funds + Decimal(request.POST['taxes'])
+            	nation.collect_taxes = datetime.datetime.now().date()
             	nation.save()
             	return redirect('/nation/' + pk)
             else:
-            	return redirect('/bills/' + pk)
-
-class taxesNationView(DetailView):
-    model = Nation
+            	return redirect('/taxes/' + pk)
+    
+    def taxes_validation(self, nation, date): 
+	    if nation.collect_taxes == date:
+	    	return {'payable': False, 'error': 'Can only collect taxes once a day.'}
+	    else:
+	    	return {'payable': True}
+    
+    def calculate_taxes(self,nation):
+	    return nation.citizens * (15000*(float(nation.tax_rate)/100))
+    
+    
+    
+class rankNationView(View):
+	def get(self,request):
+		rank1_infrastructure = Nation.objects.order_by('infrastructure').reverse()[0]
+		rank1_technology = Nation.objects.order_by('technology').reverse()[0]
+		rank1_land = Nation.objects.order_by('land').reverse()[0]
+		rank1 = {'infrastructure': rank1_infrastructure, 'technology': rank1_technology, 'land': rank1_land}
+		nations = Nation.objects.order_by('infrastructure')[0:100]
+		return render_to_response('nations/nation_rank.html',{'nations': nations, 'top': top},{})

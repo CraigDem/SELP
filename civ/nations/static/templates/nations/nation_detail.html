@@ -7,12 +7,16 @@
 	    <div class="panel-body">
 	    	<p>{{nation.nation_name}} encompasses {{nation.land}} square miles and is governed by a {{nation.government}} government. Its people are mostly of a {{nation.religion}} religion.</p>
 		</div>
-		<div class="panel-heading">{{nation.nation_name}} economic data</div>
+		<div class="panel-heading">{{nation.nation_name}}'s economic data</div>
 	    <table class="table">
 	        <tbody>
 		        <tr>
 			        <td>Bills last paid:</td>
 			        <td>{{nation.paid_bills}}</td>
+		        </tr>
+		        <tr>
+			        <td>Taxes last collected:</td>
+			        <td>{{nation.collect_taxes}}</td>
 		        </tr>
 	        	<tr>
 	            	<td>Funds: </td>
@@ -34,9 +38,13 @@
 	            	<td>National Resources: </td>
 	            	<td>{{nation.resource1}}, {{nation.resource2}}</td>
 	          	</tr>
+	          	<tr>
+		          	<td>Income Tax Rate:</td>
+		          	<td>{{nation.tax_rate}}%</td>
+	          	</tr>
 	        </tbody>
 		</table>
-		<div class="panel-heading">{{nation.nation_name}} sociatal data</div>
+		<div class="panel-heading">{{nation.nation_name}}'s societal data</div>
 		<table class="table">
 			<tbody>
 				<tr>
@@ -46,6 +54,10 @@
 				<tr>
 					<td>Religion: </td>
 					<td>{{nation.religion}}</td>
+				</tr>
+				<tr>
+					<td>Citizens: </td>
+					<td>{{nation.citizens}} people</td>
 				</tr>
 			</tbody>
 		</table>

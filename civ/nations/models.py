@@ -18,15 +18,7 @@ class Nation(models.Model):
     peaceful = models.BooleanField(default=False)
     paid_bills = models.DateField()
     collect_taxes = models.DateField()
-
-"""class War(models.Model):
-	attacker = models.ForeignKey(UserProfile, related_name='+')
-	defender = models.ForeignKey(UserProfile, related_name='+')
-	start_date = models.DateField(auto_now_add=True)
-
-class Trade(models.Model):
-	initiator = models.ForeignKey(UserProfile, related_name='+')
-	reciever = models.ForeignKey(UserProfile, related_name='+')
-	start_date = models.DateField(auto_now_add=True)"""
+    tax_rate = models.IntegerField(default=20)
+    citizens = models.IntegerField(default=1)
 
 

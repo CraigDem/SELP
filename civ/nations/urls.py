@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^bills/(?P<pk>\d+)/$', views.billsNationView.as_view(), name='payBills'),
     url(r'^taxes/(?P<pk>\d+)/$', views.taxesNationView.as_view(), name='collectTaxes'),
     url(r'^noEntry/$', views.noEntry.as_view(), name='noEntry'),
-    
+    url(r'^rank/$', views.rankNationView.as_view(), name='rank'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
