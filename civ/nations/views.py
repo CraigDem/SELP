@@ -1,20 +1,42 @@
+# Import Statements - Django
+
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-from nations.forms import UserForm, NationForm, extendForm
-from nations.models import Nation
 from django.contrib.auth.models import User
 from django.views.generic import View, UpdateView, DetailView
 from django.views.generic.edit import ModelFormMixin
 from django.forms.models import BaseModelFormSet
+from nations.forms import UserForm, NationForm, extendForm
+from nations.models import Nation
+
+# Import Statements - Python
+
 from decimal import Decimal
 import datetime
 import random
 
+"""
+
+This application uses a class based view structure. Each view is materialised as a Python class, with helper functions:
+
+get(self,request): This function will run in the event a given class is activated with a HTTP GET request.
+
+post(self,request): This function will run in the event a given class is activated with a HTTP POST request.
+
+Any functions other than the get or post functions in a class will be functions required to calculate results pertaining to their respective class view.
+
+"""
+
+# indexView generates the homepage, "/"
 class indexView(View):
+
     def get(self, request):
+	    # Render the home page's template
     	return render(request,'nations/home.html',{})
 
+# indexView generates the error page regarding not having permission to rule anothers' nation, "/no_entry"
 class noEntry(View):
+
     def get(self, request):
         return render(request,'nations/error.html',{})
 
@@ -240,13 +262,9 @@ class taxesNationView(DetailView):
     def calculate_taxes(self,nation):
 	    return nation.citizens * (15000*(float(nation.tax_rate)/100))
     
-    
-    
+# rankNationView handles the logic and generation of the ranking nations page.
 class rankNationView(View):
 	def get(self,request):
-		rank1_infrastructure = Nation.objects.order_by('infrastructure').reverse()[0]
-		rank1_technology = Nation.objects.order_by('technology').reverse()[0]
-		rank1_land = Nation.objects.order_by('land').reverse()[0]
-		rank1 = {'infrastructure': rank1_infrastructure, 'technology': rank1_technology, 'land': rank1_land}
+		rank1 = {'infrastructure': Nation.objects.order_by('infrastructure').reverse()[0], 'technology': Nation.objects.order_by('technology').reverse()[0], 'land': Nation.objects.order_by('land').reverse()[0]}
 		nations = Nation.objects.order_by('infrastructure')[0:100]
-		return render_to_response('nations/nation_rank.html',{'nations': nations, 'top': top},{})
+		return render_to_response('nations/nation_rank.html',{'nations': nations, 'rank1': rank1},{})
