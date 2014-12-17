@@ -2,6 +2,8 @@ from django.conf.urls import patterns, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from nations import views
 
+# These are regular expressions for urls of the program, these will pass the program to the correct view based on url
+
 urlpatterns = patterns('',
     url(r'^$', views.indexView.as_view()),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),

@@ -18,19 +18,19 @@
 			    <tbody>
 				    <tr>
 						<td>Infrastructure:</td>
-						<td><a href="/nation/{{top.infrastructure.id}}">{{rank1.infrastructure.nation_name}}</td>
+						<td><a href="/nation/{{top.infrastructure.id}}">{{rank1.infrastructure.nation_name}}</a></td>
 						<td>{{rank1.infrastructure.user.username}}</td>
 						<td>{{rank1.infrastructure.infrastructure}}</td>
 					</tr>
 					<tr>
 						<td>Technology:</td>
-						<td><a href="/nation/{{top.technology.id}}">{{rank1.technology.nation_name}}</td>
+						<td><a href="/nation/{{top.technology.id}}">{{rank1.technology.nation_name}}</a></td>
 						<td>{{rank1.technology.user.username}}</td>
 						<td>{{rank1.technology.technology}}</td>
 					</tr>
 					<tr>
 						<td>Land:</td>
-						<td><a href="/nation/{{top.infrastructure.id}}">{{rank1.land.nation_name}}</td>
+						<td><a href="/nation/{{top.infrastructure.id}}">{{rank1.land.nation_name}}</a></td>
 						<td>{{rank1.land.user.username}}</td>
 						<td>{{rank1.land.land}}</td>
 					</tr>
@@ -38,28 +38,47 @@
 		    </table>
 		    <div class="alert alert-info" role="alert">Click column titles below to sort nations by a category. Initially sorted by name.</div>
 		    <h3>Top Nations - Top 100 Sortable</h3>
-	    	<table data-toggle="table" data-sort-name="name" data-sort-order="asc">
-				<thead>
-		    		<tr>
-			    		<th data-field="name" data-sortable="true">Nation Name</th>
-			    		<th data-field="infrastructure" data-sortable="true">Infrastructure</th>
-			    		<th data-field="technology" data-sortable="true">Technology</th>
-			    		<th data-field="land" data-sortable="true">Land</th>
-		    		</tr>
-				</thead>
-				<tbody>
-		    		{% for nation in nations %}
-					<tr>
-						<td>{{nation.nation_name}}</td>
-						<td>{{nation.infrastructure}}</td>
-						<td>{{nation.technology}}</td>
-						<td>{{nation.land}}</td>
-					</tr> 
-					{% endfor %}
-				</tbody>
-			</table>
+	    	<div class="row">
+	    		<div class="col-sm-2">
+	    			<table data-toggle="table">
+	    				<thead>
+	    					<tr>
+	    						<th>Rank</th>
+	    					</tr>
+	    				</thead>
+	    				<tbody>
+		    				{% for count in nation_count %}
+		    				<tr>
+		    					<td>{{count}}</td>
+		    				</tr>
+		    				{% endfor %}
+		    			</tbody>
+	    			</table>
+	    		</div>
+	    		<div class="col-sm-10">
+			    	<table data-toggle="table" data-sort-name="name" data-sort-order="asc">
+						<thead>
+				    		<tr>
+					    		<th data-field="name" data-sortable="true">Nation Name</th>
+					    		<th data-field="infrastructure" data-sortable="true">Infrastructure</th>
+					    		<th data-field="technology" data-sortable="true">Technology</th>
+					    		<th data-field="land" data-sortable="true">Land</th>
+				    		</tr>
+						</thead>
+						<tbody>
+				    		{% for nation in nations %}
+							<tr>
+								<td>{{nation.nation_name}}</td>
+								<td>{{nation.infrastructure}}</td>
+								<td>{{nation.technology}}</td>
+								<td>{{nation.land}}</td>
+							</tr> 
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-
 {% endblock %}

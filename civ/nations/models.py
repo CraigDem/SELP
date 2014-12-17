@@ -3,7 +3,10 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
 
+# This is the model for a nation which definated the types of various attributes of the model. This is converted by django into a database schema.
+
 class Nation(models.Model):
+    # Each nation must have a user.
     user = models.OneToOneField(User)
 
     nation_name = models.CharField(max_length=30)
