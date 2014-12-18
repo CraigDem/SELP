@@ -1,0 +1,1 @@
+python civ/manage.py tests

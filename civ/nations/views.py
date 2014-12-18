@@ -65,7 +65,7 @@ class registerView(View):
 			user.set_password(user_form['password'].value())
 			user.save()
 			# When the user account is being created, create a nation at the same time.
-			Nation.objects.create(nation_name=user_form['nation_name'].value(),user=user,resource1=resources[0],resource2=resources[1],paid_bills=timezone.now())
+			Nation.objects.create(nation_name=user_form['nation_name'].value(),user=user,resource1=resources[0],resource2=resources[1],paid_bills=timezone.now().date(),collect_taxes=timezone.now().date())
 
 			# Set registered to true, this will be passed to the template 
 			registered = True

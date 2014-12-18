@@ -1,11 +1,18 @@
+from django.test import Client
 from django.test import TestCase
 from nations import views
+import unittest
 
 # Create your tests here.
 
-print "hello"
+class simpleTests(unittest.TestCase):
+	def indexView(self):
+		response = self.client.get('/')
+		assertEqual(response.status_code, 200)
 
-# class indexView(View):
+	def noEntry(self):
+		response = self.client.get('/no_entry')
+		assertEqual(response.status_code, 200)
 
 # class noEntry(View):
 
@@ -13,7 +20,12 @@ print "hello"
 
 # class nationView(DetailView):
 
-# class editNationView(UpdateView, ModelFormMixin):
+class editNationView(unittest.TestCase):
+	def anonymous(self):
+		response = self.client.get('nation/1',follow=True)
+		print "test" + str(response.redirect_chain)
+		#assertEqual(response.chain[:1])
+
 
 # class expandNationView(UpdateView, ModelFormMixin):
 
@@ -36,3 +48,6 @@ print "hello"
 #	def calculate_taxes(self,nation):
 
 # class rankNationView(DetailView):
+
+if __name__ == '__main__':
+	unittest.main()
