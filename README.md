@@ -8,17 +8,13 @@ Will there be any marks lost for running functions primarily by loading a new pa
 
 My game will use time constraints to limit some purchases to once a day/week/month. Is it okay for me to include a script which will reset those timers to make it far easier to test? 
 
+## General Info ##
+
+Admin Profile:
+Username : admin
+Password : admin
+
 ## INSTALLATION INSTRUCTIONS ##
-
-A script is avaliable at INSTALL.sh
-You may need to chmod +x to make the file executable
-
-## TEST INSTRUCTIONS ##
-
-A script is avaliable at TESTS.sh
-You may need to chmod +x to make the file executable
-
-Otherwise:
 
 First, when in the base directory start a virtual environment with:
 
